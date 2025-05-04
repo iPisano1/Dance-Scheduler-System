@@ -186,5 +186,10 @@ namespace Dance_Scheduler_System
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
