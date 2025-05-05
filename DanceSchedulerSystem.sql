@@ -20,11 +20,8 @@ CREATE TABLE IF NOT EXISTS `booking` (
   PRIMARY KEY (`Booking ID`),
   KEY `FK__schedule` (`Class`),
   CONSTRAINT `FK__schedule` FOREIGN KEY (`Class`) REFERENCES `schedule` (`Schedule ID`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `booking` (`Booking ID`, `Name`, `Email`, `Phone Number`, `Class`, `Date Booked`) VALUES
-	(1, 'test', 'test', '09663564939', 1, '2025-05-04'),
-	(2, 'testing123', 'test@gmail.com', '09663564939', 1, '2025-05-06');
 
 CREATE TABLE IF NOT EXISTS `schedule` (
   `Schedule ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,8 +48,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `users` (`User ID`, `Username`, `Password`, `Permission`) VALUES
-	(1, 'admin', 'admin', 'admin'),
-	(7, 'ipisano', 'ipisano', '');
+	(1, 'admin', 'admin', 'admin');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
