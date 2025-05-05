@@ -102,6 +102,7 @@
             this.schedule_DataGridView.Name = "schedule_DataGridView";
             this.schedule_DataGridView.Size = new System.Drawing.Size(643, 177);
             this.schedule_DataGridView.TabIndex = 1;
+            this.schedule_DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_DataGridView_CellClick);
             // 
             // label1
             // 
@@ -184,8 +185,8 @@
             this.ClientSize = new System.Drawing.Size(815, 453);
             this.Controls.Add(this.adminBtn);
             this.Controls.Add(this.logoutBtn);
-            this.Controls.Add(this.homePanel);
             this.Controls.Add(this.schedulePanel);
+            this.Controls.Add(this.homePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

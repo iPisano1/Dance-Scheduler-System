@@ -595,6 +595,18 @@ namespace Dance_Scheduler_System
             }
             using (MySqlConnection connection = new MySqlConnection("server=localhost;user=root;database=dance_scheduler_system;password=;")) 
             {
+                connection.Open();
+                MySqlCommand checkSlotsCommand = new MySqlCommand("SELECT `Slots` FROM schedule WHERE `Schedule ID` = @ScheduleID", connection);
+                checkSlotsCommand.Parameters.AddWithValue("@ScheduleID", bookings_ClassBox.SelectedValue);
+                int availableSlots = Convert.ToInt32(checkSlotsCommand.ExecuteScalar());
+
+                if (availableSlots <= 0)
+                {
+                    MessageBox.Show("No more slots available for this class.");
+                    connection.Close();
+                    return;
+                }
+
                 MySqlCommand insertCommand = new MySqlCommand("INSERT INTO booking(`Name`, `Email`, `Phone Number`, `Class`, `Date Booked`) VALUES(@Name, @Email, @PhoneNumber, @Class, @DateBooked)", connection);
                 insertCommand.Parameters.AddWithValue("@Name", bookings_NameTextBox.Text);
                 insertCommand.Parameters.AddWithValue("@Email", bookings_EmailTextBox.Text);
@@ -604,9 +616,12 @@ namespace Dance_Scheduler_System
 
                 try
                 {
-                    connection.Open();
                     insertCommand.ExecuteNonQuery();
                     MessageBox.Show("Booking Successfully Added.");
+
+                    MySqlCommand reduceSlotsCommand = new MySqlCommand("UPDATE schedule SET `Slots` = `Slots` - 1 WHERE `Schedule ID` = @ScheduleID", connection);
+                    reduceSlotsCommand.Parameters.AddWithValue("@ScheduleID", bookings_ClassBox.SelectedValue);
+                    reduceSlotsCommand.ExecuteNonQuery();
 
                     selectedBookingID = -1;
                     ClearBookingTextFields();
@@ -632,13 +647,41 @@ namespace Dance_Scheduler_System
             }
             using (MySqlConnection connection = new MySqlConnection("server=localhost;user=root;database=dance_scheduler_system;password=;"))
             {
+                connection.Open();
+
+                MySqlCommand getClassCommand = new MySqlCommand("SELECT `Class` FROM booking WHERE `Booking ID` = @BookingID", connection);
+                getClassCommand.Parameters.AddWithValue("@BookingID", selectedBookingID);
+                object scheduleIDObj = getClassCommand.ExecuteScalar();
+
+                if (scheduleIDObj == null)
+                {
+                    MessageBox.Show("Schedule not found for this booking.");
+                    return;
+                }
+
                 MySqlCommand deleteCommand = new MySqlCommand("DELETE FROM booking WHERE `Booking ID` = @BookingID", connection);
                 deleteCommand.Parameters.AddWithValue("@BookingID", selectedBookingID);
+
                 try
                 {
-                    connection.Open();
-                    deleteCommand.ExecuteNonQuery();
-                    MessageBox.Show("Booking Successfully Deleted.");
+                    int rowsAffected = deleteCommand.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MySqlCommand restoreSlotsCommand = new MySqlCommand("UPDATE schedule SET `Slots` = `Slots` + 1 WHERE `Schedule ID` = @ScheduleID", connection);
+                        restoreSlotsCommand.Parameters.AddWithValue("@ScheduleID", Convert.ToInt32(scheduleIDObj));
+                        restoreSlotsCommand.ExecuteNonQuery();
+
+                        MessageBox.Show("Booking Successfully Deleted.");
+
+                        selectedBookingID = -1;
+                        displayBookingsGrid();
+                        ClearBookingTextFields();
+                        bookings_DataGrid.ClearSelection();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete booking.");
+                    }
 
                     selectedBookingID = -1;
                     displayBookingsGrid();

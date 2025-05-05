@@ -16,6 +16,7 @@ namespace Dance_Scheduler_System
     {
         MainForm mainForm = new MainForm();
         string Type;
+        private int selectedScheduleID;
 
         private void InputForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -28,9 +29,10 @@ namespace Dance_Scheduler_System
             this.Hide();
         }
 
-        public InputForm(string Type)
+        public InputForm(string Type, int scheduleID)
         {
             this.Type = Type;
+            this.selectedScheduleID = scheduleID;
             InitializeComponent();
             FillClassBox();
         }
@@ -49,18 +51,7 @@ namespace Dance_Scheduler_System
                     information_Class_Box.DataSource = dt;
                     information_Class_Box.DisplayMember = "Type";
                     information_Class_Box.ValueMember = "Schedule ID";
-
-                    if (!string.IsNullOrEmpty(Type))
-                    {
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            if (row["Type"].ToString() == Type)
-                            {
-                                information_Class_Box.SelectedValue = row["Schedule ID"];
-                                break;
-                            }
-                        }
-                    }
+                    information_Class_Box.SelectedValue = selectedScheduleID;
                 }
                 catch (Exception ex)
                 {
@@ -68,6 +59,7 @@ namespace Dance_Scheduler_System
                 }
             }
         }
+
 
         public void clearFields() { 
             information_Name_TextBox.Text = "";
@@ -80,6 +72,18 @@ namespace Dance_Scheduler_System
         {
             using (MySqlConnection connection = new MySqlConnection("server=localhost;user=root;database=dance_scheduler_system;password=;")) 
             {
+                connection.Open();
+
+                MySqlCommand checkSlotsCommand = new MySqlCommand("SELECT `Slots` FROM schedule WHERE `Schedule ID` = @ScheduleID", connection);
+                checkSlotsCommand.Parameters.AddWithValue("@ScheduleID", information_Class_Box.SelectedValue);
+                int availableSlots = Convert.ToInt32(checkSlotsCommand.ExecuteScalar());
+
+                if (availableSlots <= 0)
+                {
+                    MessageBox.Show("No more slots available for this class.");
+                    return;
+                }
+
                 MySqlCommand insertCommand = new MySqlCommand("INSERT INTO booking(`Name`, `Email`, `Phone Number`, `Class`) VALUES(@Name, @Email, @PhoneNumber, @Class)", connection);
                 insertCommand.Parameters.AddWithValue("@Name", information_Name_TextBox.Text);
                 insertCommand.Parameters.AddWithValue("@Email", information_Email_TextBox.Text);
@@ -98,9 +102,13 @@ namespace Dance_Scheduler_System
 
                 try
                 {
-                    connection.Open();
                     insertCommand.ExecuteNonQuery();
                     MessageBox.Show("Booking Successful!");
+
+                    MySqlCommand reduceSlotsCommand = new MySqlCommand("UPDATE schedule SET `Slots` = `Slots` - 1 WHERE `Schedule ID` = @ScheduleID", connection);
+                    reduceSlotsCommand.Parameters.AddWithValue("@ScheduleID", information_Class_Box.SelectedValue);
+                    reduceSlotsCommand.ExecuteNonQuery();
+
                     clearFields();
                     mainForm.Show();
                     this.Hide();
