@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.submitBtn = new System.Windows.Forms.Button();
             this.information_Class_Box = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.information_Name_TextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.backBtn = new System.Windows.Forms.Button();
-            this.submitBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +62,17 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(30);
             this.panel1.Size = new System.Drawing.Size(701, 344);
             this.panel1.TabIndex = 0;
+            // 
+            // submitBtn
+            // 
+            this.submitBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submitBtn.Location = new System.Drawing.Point(293, 281);
+            this.submitBtn.Name = "submitBtn";
+            this.submitBtn.Size = new System.Drawing.Size(112, 30);
+            this.submitBtn.TabIndex = 10;
+            this.submitBtn.Text = "SUBMIT";
+            this.submitBtn.UseVisualStyleBackColor = true;
+            this.submitBtn.Click += new System.EventHandler(this.submitBtn_Click);
             // 
             // information_Class_Box
             // 
@@ -143,9 +154,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(258, 30);
+            this.label1.Location = new System.Drawing.Point(255, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 40);
             this.label1.TabIndex = 0;
@@ -163,17 +175,6 @@
             this.backBtn.Text = "Back";
             this.backBtn.UseVisualStyleBackColor = false;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
-            // 
-            // submitBtn
-            // 
-            this.submitBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitBtn.Location = new System.Drawing.Point(293, 281);
-            this.submitBtn.Name = "submitBtn";
-            this.submitBtn.Size = new System.Drawing.Size(112, 30);
-            this.submitBtn.TabIndex = 10;
-            this.submitBtn.Text = "SUBMIT";
-            this.submitBtn.UseVisualStyleBackColor = true;
-            this.submitBtn.Click += new System.EventHandler(this.submitBtn_Click);
             // 
             // InputForm
             // 

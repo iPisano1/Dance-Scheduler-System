@@ -15,7 +15,7 @@ namespace Dance_Scheduler_System
     public partial class InputForm: Form
     {
         MainForm mainForm = new MainForm();
-        string Day, Type, Time, Instructor;
+        string Type;
 
         private void InputForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -28,12 +28,9 @@ namespace Dance_Scheduler_System
             this.Hide();
         }
 
-        public InputForm(string Day, string Type, string Time, string Instructor)
+        public InputForm(string Type)
         {
-            this.Day = Day;
             this.Type = Type;
-            this.Time = Time;
-            this.Instructor = Instructor;
             InitializeComponent();
             FillClassBox();
         }

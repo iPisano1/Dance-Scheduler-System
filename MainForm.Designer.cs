@@ -39,7 +39,7 @@
             this.bookBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.homePanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.adminBtn = new System.Windows.Forms.Button();
             this.schedulePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_DataGridView)).BeginInit();
             this.homePanel.SuspendLayout();
@@ -143,11 +143,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Black", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(118, 74);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(469, 65);
+            this.label2.Size = new System.Drawing.Size(449, 65);
             this.label2.TabIndex = 6;
             this.label2.Text = "Welcome to Steeze";
             // 
@@ -161,18 +161,19 @@
             this.homePanel.Size = new System.Drawing.Size(709, 347);
             this.homePanel.TabIndex = 7;
             // 
-            // button1
+            // adminBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.Gold;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(708, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 24);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Admin Mode";
-            this.button1.UseVisualStyleBackColor = false;
+            this.adminBtn.BackColor = System.Drawing.Color.Gold;
+            this.adminBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminBtn.ForeColor = System.Drawing.Color.Black;
+            this.adminBtn.Location = new System.Drawing.Point(708, 6);
+            this.adminBtn.Name = "adminBtn";
+            this.adminBtn.Size = new System.Drawing.Size(101, 24);
+            this.adminBtn.TabIndex = 8;
+            this.adminBtn.Text = "Admin Mode";
+            this.adminBtn.UseVisualStyleBackColor = false;
+            this.adminBtn.Click += new System.EventHandler(this.adminBtn_Click);
             // 
             // MainForm
             // 
@@ -181,7 +182,7 @@
             this.BackgroundImage = global::Dance_Scheduler_System.Properties.Resources.bodybackground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(815, 453);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.adminBtn);
             this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.homePanel);
             this.Controls.Add(this.schedulePanel);
@@ -215,6 +216,6 @@
         private System.Windows.Forms.Button bookBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel homePanel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button adminBtn;
     }
 }

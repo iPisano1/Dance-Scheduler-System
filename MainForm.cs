@@ -27,7 +27,6 @@ namespace Dance_Scheduler_System
         private void MainForm_Load(object sender, EventArgs e)
         {
             displayScheduleGrid();
-            schedule_DataGridView.Rows[0].Selected = true;
         }
 
         private void displayScheduleGrid()
@@ -40,7 +39,6 @@ namespace Dance_Scheduler_System
                 adapter.Fill(dt);
                 schedule_DataGridView.DataSource = dt;
 
-                // Set to auto-fill the grid width
                 schedule_DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 schedule_DataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 schedule_DataGridView.AllowUserToResizeColumns = false;
@@ -49,7 +47,6 @@ namespace Dance_Scheduler_System
                 schedule_DataGridView.RowHeadersWidth = 30;
                 schedule_DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 
-                // Optional: Set proportional FillWeight to control how much space each column uses
                 schedule_DataGridView.Columns["Day"].FillWeight = 80;
                 schedule_DataGridView.Columns["Type"].FillWeight = 120;
                 schedule_DataGridView.Columns["Time"].FillWeight = 100;
@@ -89,7 +86,7 @@ namespace Dance_Scheduler_System
             Time = schedule_DataGridView.CurrentRow.Cells[2].Value.ToString();
             Instructor = schedule_DataGridView.CurrentRow.Cells[3].Value.ToString();
 
-            InputForm inputForm = new InputForm(Day, Type, Time, Instructor);
+            InputForm inputForm = new InputForm(Type);
             inputForm.Show();
             this.Hide();
 
@@ -105,6 +102,13 @@ namespace Dance_Scheduler_System
         {
             schedulePanel.Visible = false;
             homePanel.Visible = true;
+        }
+
+        private void adminBtn_Click(object sender, EventArgs e)
+        {
+            AdminForm adminForm = new AdminForm();
+            adminForm.Show();
+            this.Hide();
         }
     }
 }
